@@ -10,6 +10,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val titleTextView = findViewById<TextView>(R.id.titleTextView)
+
+        if(savedInstanceState != null) titleTextView.text = savedInstanceState.getString("title_text")
+
         findViewById<Button>(R.id.changeButton).setOnClickListener {
             titleTextView.text =
                 if (titleTextView.text == getString(R.string.hello_world))
@@ -17,5 +20,10 @@ class MainActivity : AppCompatActivity() {
                 else
                     getString(R.string.hello_world)
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString("title_text", findViewById<TextView>(R.id.titleTextView).text.toString())
+        super.onSaveInstanceState(outState)
     }
 }
