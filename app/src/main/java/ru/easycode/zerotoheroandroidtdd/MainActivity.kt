@@ -2,6 +2,7 @@ package ru.easycode.zerotoheroandroidtdd
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 
@@ -12,21 +13,25 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val changeButton = findViewById<Button>(R.id.changeButton)
+        val hideButton = findViewById<Button>(R.id.hideButton)
         titleTextView = findViewById(R.id.titleTextView)
 
-        changeButton.setOnClickListener {
-            titleTextView.text = getString(R.string.i_am_an_android_developer)
+        hideButton.setOnClickListener {
+            titleTextView.visibility = View.INVISIBLE
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString("key", titleTextView.text.toString())
+        outState.putInt(KEY, titleTextView.visibility)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        titleTextView.text = savedInstanceState.getString("key")
+        titleTextView.visibility = savedInstanceState.getInt(KEY)
+    }
+
+    companion object {
+        private const val KEY = "visibilityKey"
     }
 }
