@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var linearLayout: LinearLayout
     private lateinit var textView: TextView
+    private lateinit var button: Button
     private var state: State = State.Initial
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,11 +23,11 @@ class MainActivity : AppCompatActivity() {
 
         linearLayout = findViewById(R.id.rootLayout)
         textView = findViewById(R.id.titleTextView)
-        val button = findViewById<Button>(R.id.removeButton)
+        button = findViewById<Button>(R.id.removeButton)
 
         button.setOnClickListener {
             state = State.Removed
-            state.apply(linearLayout, textView)
+            state.apply(linearLayout, textView, button)
         }
     }
 
@@ -42,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             savedInstanceState.getSerializable(KEY) as State
         }
-        state.apply(linearLayout, textView)
+        state.apply(linearLayout, textView, button)
     }
 
     companion object {
@@ -52,15 +53,16 @@ class MainActivity : AppCompatActivity() {
 
 interface State : Serializable {
 
-    fun apply(linearLayout: LinearLayout, textView: TextView)
+    fun apply(linearLayout: LinearLayout, textView: TextView, button: Button)
 
     object Initial : State {
-        override fun apply(linearLayout: LinearLayout, textView: TextView) = Unit
+        override fun apply(linearLayout: LinearLayout, textView: TextView, button: Button) = Unit
     }
 
     object Removed : State {
-        override fun apply(linearLayout: LinearLayout, textView: TextView) {
+        override fun apply(linearLayout: LinearLayout, textView: TextView, button: Button) {
             linearLayout.removeView(textView)
+            button.isEnabled = false
         }
     }
 }
