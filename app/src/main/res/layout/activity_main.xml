@@ -5,22 +5,29 @@
     android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
     android:gravity="center"
+    android:orientation="horizontal"
     tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/decrementButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="-" />
 
     <TextView
         android:id="@+id/countTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:freezesText="true"
         android:text="0" />
 
     <Button
-        android:layout_marginStart="16dp"
         android:id="@+id/incrementButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="increment" />
+        android:text="+" />
 
 </LinearLayout>

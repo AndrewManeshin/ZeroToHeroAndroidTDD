@@ -8,21 +8,30 @@ import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
 
-    private var state: UiState = UiState.Base("0")
-    private lateinit var button: Button
+    val count = Count.Base(2, 4, 0)
+    private lateinit var decrementButton: Button
+    private lateinit var incrementButton: Button
     private lateinit var textView: TextView
+    private var state: UiState = count.initial("0")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        button = findViewById(R.id.incrementButton)
+        incrementButton = findViewById(R.id.incrementButton)
+        decrementButton = findViewById(R.id.decrementButton)
         textView = findViewById(R.id.countTextView)
-        val count = Count.Base(2, 4)
 
-        button.setOnClickListener {
+        state.apply(textView, incrementButton, decrementButton)
+
+        decrementButton.setOnClickListener {
+            state = count.decrement(textView.text.toString())
+            state.apply(textView, incrementButton, decrementButton)
+        }
+
+        incrementButton.setOnClickListener {
             state = count.increment(textView.text.toString())
-            state.apply(textView, button)
+            state.apply(textView, incrementButton, decrementButton)
         }
     }
 
@@ -39,10 +48,10 @@ class MainActivity : AppCompatActivity() {
             savedInstanceState.getSerializable(KEY) as UiState
         }
 
-        state.apply(textView, button)
+        state.apply(textView, incrementButton, decrementButton)
     }
 
     companion object {
-        private const val KEY = "key"
+        private const val KEY = "UiStateKey"
     }
 }
