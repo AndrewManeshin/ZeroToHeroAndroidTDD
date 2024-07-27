@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         val textView = findViewById<TextView>(R.id.titleTextView)
         val progressBar = findViewById<ProgressBar>(R.id.progressBar)
 
-        val viewModel = MainViewModel(LiveDataWrapper.Base(), Repository.Mok())
+        val viewModel = (application as App).mainViewModel
         viewModel.observe(this) { uiState ->
             uiState.apply(progressBar, textView, button)
         }
@@ -24,4 +24,6 @@ class MainActivity : AppCompatActivity() {
             viewModel.load()
         }
     }
+
+    щт
 }
