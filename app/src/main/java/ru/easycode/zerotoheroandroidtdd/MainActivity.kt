@@ -1,15 +1,14 @@
-package ru.easycode.zerotoheroandroidtdd.main
+package ru.easycode.zerotoheroandroidtdd
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
-import ru.easycode.zerotoheroandroidtdd.R
 import ru.easycode.zerotoheroandroidtdd.databinding.ActivityMainBinding
-import ru.easycode.zerotoheroandroidtdd.di.ProvideViewModel
 
 class MainActivity : AppCompatActivity(), ProvideViewModel {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,11 +16,19 @@ class MainActivity : AppCompatActivity(), ProvideViewModel {
         setContentView(binding.root)
 
         val viewModel = viewModel(MainViewModel::class.java)
-        viewModel.init(savedInstanceState == null)
 
-        viewModel.navigateLiveData().observe(this) { screen ->
-            screen.show(R.id.mainContainer, supportFragmentManager)
+        val adapter = Adapter()
+        binding.recyclerView.adapter = adapter
+
+        viewModel.liveData().observe(this) {
+            adapter.update(it)
         }
+
+        binding.addButton.setOnClickListener {
+            AddBottomSheetFragment().show(supportFragmentManager, "CreateBottomSheetFragment")
+        }
+
+        viewModel.init()
     }
 
     override fun <T : ViewModel> viewModel(viewModelClass: Class<T>): T =

@@ -1,9 +1,6 @@
-package ru.easycode.zerotoheroandroidtdd.di
+package ru.easycode.zerotoheroandroidtdd
 
 import androidx.lifecycle.ViewModel
-import ru.easycode.zerotoheroandroidtdd.create.ProvideCreateViewModel
-import ru.easycode.zerotoheroandroidtdd.list.ProvideListViewModel
-import ru.easycode.zerotoheroandroidtdd.main.ProvideMainViewModel
 
 interface ProvideViewModel {
 
@@ -15,8 +12,7 @@ interface ProvideViewModel {
 
         init {
             chain = Error()
-            chain = ProvideCreateViewModel(core, chain)
-            chain = ProvideListViewModel(core, chain)
+            chain = ProvideAddViewModel(core, chain)
             chain = ProvideMainViewModel(core, chain)
         }
 

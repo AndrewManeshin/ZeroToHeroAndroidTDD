@@ -1,4 +1,4 @@
-package ru.easycode.zerotoheroandroidtdd.list
+package ru.easycode.zerotoheroandroidtdd
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.easycode.zerotoheroandroidtdd.databinding.ItemTextBinding
 
-class TextAdapter : RecyclerView.Adapter<TextAdapter.TextViewHolder>() {
+class Adapter : RecyclerView.Adapter<Adapter.ItemViewHolder>() {
 
     private val list = ArrayList<CharSequence>()
 
@@ -18,17 +18,17 @@ class TextAdapter : RecyclerView.Adapter<TextAdapter.TextViewHolder>() {
         diff.dispatchUpdatesTo(this)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TextViewHolder {
-        return TextViewHolder(ItemTextBinding.inflate(LayoutInflater.from(parent.context)))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
+        return ItemViewHolder(ItemTextBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
-    override fun onBindViewHolder(holder: TextViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.bind(list[position])
     }
 
     override fun getItemCount() = list.size
 
-    class TextViewHolder(private val binding: ItemTextBinding) :
+    class ItemViewHolder(private val binding: ItemTextBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(source: CharSequence) {

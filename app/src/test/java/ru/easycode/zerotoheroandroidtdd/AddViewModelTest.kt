@@ -23,7 +23,6 @@ class AddViewModelTest {
             )
 
         viewModel.add(value = "new text input")
-
         repository.checkAddCalled("new text input")
         liveDataWrapper.checkAddCalled("new text input")
         clear.checkClearCalled(AddViewModel::class.java)

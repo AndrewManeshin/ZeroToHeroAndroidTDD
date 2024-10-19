@@ -2,10 +2,6 @@ package ru.easycode.zerotoheroandroidtdd
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
-import ru.easycode.zerotoheroandroidtdd.core.ClearViewModel
-import ru.easycode.zerotoheroandroidtdd.di.Core
-import ru.easycode.zerotoheroandroidtdd.di.ProvideViewModel
-import ru.easycode.zerotoheroandroidtdd.di.ViewModelFactory
 
 class App : Application(), ProvideViewModel {
 
@@ -15,12 +11,12 @@ class App : Application(), ProvideViewModel {
         super.onCreate()
 
         val clearViewModel = object : ClearViewModel {
-            override fun clear(viewModelClass: Class<out ViewModel>) {
-                factory.clear(viewModelClass)
+            override fun clearViewModel(clasz: Class<out ViewModel>) {
+                factory.clearViewModel(clasz)
             }
         }
 
-        val make = ProvideViewModel.Make(Core(clearViewModel))
+        val make = ProvideViewModel.Make(Core(clearViewModel, applicationContext))
         factory = ViewModelFactory.Base(make)
     }
 
