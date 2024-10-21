@@ -9,6 +9,9 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import ru.easycode.zerotoheroandroidtdd.data.cache.ItemCache
+import ru.easycode.zerotoheroandroidtdd.data.cache.ItemsDao
+import ru.easycode.zerotoheroandroidtdd.data.cache.ItemsDataBase
 import java.io.IOException
 
 /**
